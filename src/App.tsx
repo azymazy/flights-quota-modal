@@ -1,5 +1,7 @@
+import { PageFlightsQuota } from './pages'
+
 function App() {
-  return <h1>test</h1>
+  return <PageFlightsQuota />
 }
 
 export default App
