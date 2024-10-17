@@ -1,7 +1,12 @@
 import { PageFlightsQuota } from './pages'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-function App() {
-  return <PageFlightsQuota />
+const queryClient = new QueryClient()
+
+export function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <PageFlightsQuota />
+    </QueryClientProvider>
+  )
 }
-
-export default App
