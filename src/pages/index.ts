@@ -1,1 +1,1 @@
-export * from './PageFlightsQuota'
+export * from './flights-quota'
