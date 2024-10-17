@@ -1,7 +1,8 @@
-import { useFlightsQuotaQuery } from './api'
+import { useFlightsQuotaQuery } from '../../shared/api'
 import { Button, Stack, Typography } from '@mui/material'
 import IconEdit from '@mui/icons-material/Edit'
 import { useIsOpen } from '@/shared'
+import { ModalFlightsQuota } from '@/features'
 
 export function PageFlightsQuota() {
   const { data: quota, isPending } = useFlightsQuotaQuery()
@@ -17,11 +18,11 @@ export function PageFlightsQuota() {
           Edit flights
         </Button>
       </Stack>
-      {/* <ModalFlightsQuota
+      <ModalFlightsQuota
         onClose={onClose}
         initialValue={quota}
         isOpen={isOpen}
-      /> */}
+      />
     </Stack>
   )
 }
