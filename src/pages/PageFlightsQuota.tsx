@@ -1,4 +1,4 @@
-import { QUERY_KEYS } from '../shared/consts'
+import { QUERY_KEYS } from '@/shared/consts'
 
 console.log('QUERY_KEYS', QUERY_KEYS)
 
