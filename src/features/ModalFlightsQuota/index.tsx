@@ -14,11 +14,10 @@ import { Theme } from '@mui/material/styles'
 import { Notification } from '@/shared'
 import IconClose from '@mui/icons-material/Close'
 
-import { NumberControl } from './NumberControl'
+import { NumberControl, SelectMotive } from './ui'
 
 const MIN_QUOTA = 0
 const MAX_QUOTA = 3
-
 const QUOTA_INCREASING_MOTIVES = [
   'Subscriber canceled flight',
   'Airline canceled flight',
@@ -99,13 +98,12 @@ export function ModalFlightsQuota({
               onChange={handleQuotaChange}
               value={quota}
             />
-            {/*
             <SelectMotive
               disabled={quota === initialValue}
               onChange={setMotive}
               options={motiveOptions}
               value={motive}
-            /> */}
+            />
           </Stack>
         </DialogContent>
         <DialogActions>

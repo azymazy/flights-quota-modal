@@ -2,8 +2,8 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { QUERY_KEYS } from '@/shared'
 
-// fails in 20% of requests
-const MOCK_API_URL = 'https://httpstat.us/random/200,200,200,200,503?sleep=500'
+// fails in 25% of requests
+const MOCK_API_URL = 'https://httpstat.us/random/200,200,200,503?sleep=500'
 
 const MOCK_BACKEND = {
   flightsQuota: 2,
