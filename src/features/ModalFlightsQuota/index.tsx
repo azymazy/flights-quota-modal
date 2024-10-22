@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { useForm, SubmitHandler } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 import {
   Button,
   Dialog,
@@ -41,18 +40,15 @@ const IconCloseStyles = (theme: Theme) => ({
 })
 
 type Motive = string
-
 type Quota = number
-
 type ModalFlightsQuotaProps = {
   initialValue: Quota
   isOpen: boolean
   onClose: () => void
 }
-
 type Inputs = {
-  quota: Quota
   motive: Motive
+  quota: Quota
 }
 
 const getMotiveOptions = (initialValue: Quota, value: Quota): Motive[] => {
@@ -67,30 +63,22 @@ export function ModalFlightsQuota({
   isOpen,
   onClose,
 }: ModalFlightsQuotaProps) {
-  const { register, handleSubmit } = useForm<Inputs>()
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data)
-
-  const [updatedQuota, setUpdatedQuota] = useState<Quota | null>(null)
-  const [motive, setMotive] = useState<Motive | null>(null)
-  const quota = updatedQuota ?? initialValue
+  const { control, reset, setValue, watch } = useForm<Inputs>({
+    values: {
+      motive: '',
+      quota: initialValue,
+    },
+  })
   const { mutate, isError } = useFlightsQuotaMutation()
-
+  const motive = watch('motive')
+  const quota = watch('quota')
   const motiveOptions = getMotiveOptions(initialValue, quota)
   const isSaveButtonActive = quota !== initialValue && !!motive
-  const handleQuotaChange = (value: number) => {
-    if (value === initialValue) {
-      setMotive(null)
-    }
-    setUpdatedQuota(value)
-  }
   const handleClose = () => {
-    setUpdatedQuota(null)
-    setMotive(null)
+    reset()
     onClose()
   }
   const handleSave = () => {
-    if (quota == null || !motive)
-      throw new Error('quota and motive are required')
     mutate({ quota, motive })
     handleClose()
   }
@@ -98,31 +86,43 @@ export function ModalFlightsQuota({
   return (
     <>
       {isError && <Notification message="Flights quota update failed" />}
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input defaultValue="test" {...register('quota')} />
-        <input {...register('motive')} />
-        <input type="submit" />
-      </form>
       <Dialog closeAfterTransition={false} open={isOpen} onClose={handleClose}>
         <DialogTitle>Edit flights</DialogTitle>
         <DialogContent>
           <DialogContentText mb={4}>
             Add or remove flights from the subscriber
           </DialogContentText>
-          <Stack direction="row" justifyContent="space-between">
-            <NumberControl
-              min={MIN_QUOTA}
-              max={MAX_QUOTA}
-              onChange={handleQuotaChange}
-              value={quota}
-            />
-            <SelectMotive
-              disabled={quota === initialValue}
-              onChange={setMotive}
-              options={motiveOptions}
-              value={motive}
-            />
-          </Stack>
+          <form>
+            <Stack direction="row" justifyContent="space-between">
+              <Controller
+                name="quota"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <NumberControl
+                    min={MIN_QUOTA}
+                    max={MAX_QUOTA}
+                    onChange={(value) => {
+                      if (value === initialValue) setValue('motive', '')
+                      onChange(value)
+                    }}
+                    value={value}
+                  />
+                )}
+              />
+              <Controller
+                name="motive"
+                control={control}
+                render={({ field: { onChange, value } }) => (
+                  <SelectMotive
+                    disabled={quota === initialValue}
+                    onChange={onChange}
+                    options={motiveOptions}
+                    value={value}
+                  />
+                )}
+              />
+            </Stack>
+          </form>
         </DialogContent>
         <DialogActions>
           <Button
