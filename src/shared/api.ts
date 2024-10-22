@@ -2,6 +2,11 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 
 import { QUERY_KEYS } from '@/shared'
 
+type FlightQuota = {
+  quota: number
+  motive: string
+}
+
 // fails in 25% of requests
 const MOCK_API_URL = 'https://httpstat.us/random/200,200,200,503?sleep=500'
 
@@ -13,11 +18,6 @@ const flightsQuotaFetch = async () => {
   const response = await fetch(MOCK_API_URL)
   if (!response.ok) throw new Error('Unable to fetch Flights Quota')
   return MOCK_BACKEND.flightsQuota
-}
-
-type FlightQuota = {
-  quota: number
-  motive: string
 }
 
 const flightsQuotaUpdate = async ({ quota, motive }: FlightQuota) => {

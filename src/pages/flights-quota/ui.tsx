@@ -9,6 +9,7 @@ export function PageFlightsQuota() {
   const { isOpen, onClose, onOpen } = useIsOpen()
 
   if (isPending) return 'Loading...'
+  if (quota == null) return 'There is no quota'
 
   return (
     <Stack alignItems="center" justifyContent="center" minHeight="100vh">

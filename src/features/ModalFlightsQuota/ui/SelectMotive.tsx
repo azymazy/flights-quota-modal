@@ -9,9 +9,9 @@ import {
 
 type SelectMotiveProps = {
   disabled: boolean
-  options: string[]
-  value: string
   onChange: (value: string) => void
+  options: string[]
+  value?: string | null
 }
 
 export function SelectMotive({
