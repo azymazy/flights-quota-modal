@@ -93,7 +93,7 @@ export function ModalFlightsQuota({
             Add or remove flights from the subscriber
           </DialogContentText>
           <form>
-            <Stack direction="row" justifyContent="space-between">
+            <Stack direction="row" gap={1} justifyContent="space-between">
               <Controller
                 name="quota"
                 control={control}

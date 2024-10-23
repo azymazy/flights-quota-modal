@@ -32,7 +32,7 @@ export function NumberControl({
   return (
     <Stack>
       <InputLabel>Flights Left</InputLabel>
-      <Stack direction="row">
+      <Stack direction="row" py={1}>
         <IconButton
           aria-label="decrement"
           disabled={value <= min}
@@ -40,7 +40,7 @@ export function NumberControl({
         >
           <IconRemove />
         </IconButton>
-        <Typography sx={{ placeContent: 'center', userSelect: 'none' }}>
+        <Typography sx={{ p: 1, placeContent: 'center', userSelect: 'none' }}>
           {value}
         </Typography>
         <IconButton
