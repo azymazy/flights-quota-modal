@@ -10,11 +10,10 @@ import {
   Stack,
 } from '@mui/material'
 import { Theme } from '@mui/material/styles'
-import { Notification } from '@/shared'
 import IconClose from '@mui/icons-material/Close'
 
 import { useFlightsQuotaMutation } from '@/shared'
-import { NumberControl, SelectMotive } from './ui'
+import { Notifications, NumberControl, SelectMotive } from './ui'
 
 const MIN_QUOTA = 0
 const MAX_QUOTA = 3
@@ -69,7 +68,7 @@ export function ModalFlightsQuota({
       quota: initialValue,
     },
   })
-  const { mutate, isError } = useFlightsQuotaMutation()
+  const { mutate, isError, isSuccess } = useFlightsQuotaMutation()
   const motive = watch('motive')
   const quota = watch('quota')
   const motiveOptions = getMotiveOptions(initialValue, quota)
@@ -85,7 +84,7 @@ export function ModalFlightsQuota({
 
   return (
     <>
-      {isError && <Notification message="Flights quota update failed" />}
+      <Notifications isError={isError} isSuccess={isSuccess} />
       <Dialog closeAfterTransition={false} open={isOpen} onClose={handleClose}>
         <DialogTitle>Edit flights</DialogTitle>
         <DialogContent>

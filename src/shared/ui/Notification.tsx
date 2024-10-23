@@ -14,8 +14,9 @@ export function Notification({
 
   return (
     <Snackbar
-      autoHideDuration={5000}
       anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+      autoHideDuration={5000}
+      ClickAwayListenerProps={{ onClickAway: () => null }}
       onClose={onClose}
       open={isOpen}
     >
